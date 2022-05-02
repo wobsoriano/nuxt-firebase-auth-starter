@@ -1,5 +1,3 @@
-import { useState } from '#app'
-
 interface User {
   uid: string
   email: string

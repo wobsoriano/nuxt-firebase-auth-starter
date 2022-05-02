@@ -1,7 +1,5 @@
-
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { defineNuxtPlugin } from '#app'
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
