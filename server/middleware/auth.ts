@@ -3,14 +3,14 @@ import { useCookie } from 'h3'
 import { getApp } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'
 
-export default async(req: IncomingMessage, res: ServerResponse, next) => {
+export default  defineEventHandler(async(event) => {
+  const { req, res } = event
   if (req.url.includes('/api/')) {
     const token = useCookie(req, 'token')
     const app = getApp()
     const auth = getAuth(app)
     try {
       await auth.verifyIdToken(token)
-      next()
     }
     catch (e) {
       res.statusCode = 400
@@ -19,4 +19,4 @@ export default async(req: IncomingMessage, res: ServerResponse, next) => {
       )
     }
   }
-}
+})
