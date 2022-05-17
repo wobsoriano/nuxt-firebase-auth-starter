@@ -1,11 +1,11 @@
 import { setCookie } from 'h3'
-import cookieOptions from '~/config/cookie'
 
 export default defineEventHandler(async(event) => {
   const body = await useBody(event)
-
+  const cookieOptions = useRuntimeConfig().public.firebaseAuthCookie
+  console.log(cookieOptions)
   if (body.token) {
-    setCookie(event, 'firebase-token', body.token, {
+    setCookie(event, `${cookieOptions.name}-token`, body.token, {
       domain: cookieOptions.domain,
       maxAge: cookieOptions.lifetime ?? 0,
       path: cookieOptions.path,
@@ -14,7 +14,7 @@ export default defineEventHandler(async(event) => {
     return 'auth cookie set'
   }
 
-  setCookie(event, 'firebase-token', '', {
+  setCookie(event, `${cookieOptions.name}-token`, '', {
     maxAge: -1,
     path: cookieOptions.path,
   })

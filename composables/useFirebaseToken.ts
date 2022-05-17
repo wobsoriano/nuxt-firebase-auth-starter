@@ -1,5 +1,6 @@
-import { useCookie } from '#imports'
+import { useCookie, useRuntimeConfig } from '#imports'
 
 export default function() {
-  return useCookie('firebase-token')
+  const cookieOptions = useRuntimeConfig().public.firebaseAuthCookie
+  return useCookie(`${cookieOptions.name}-token`)
 }

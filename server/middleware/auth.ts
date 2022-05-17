@@ -7,8 +7,9 @@ import { useCookie } from 'h3'
 
 export default defineEventHandler(async(event) => {
   const { req, res } = event
+  const cookieOptions = useRuntimeConfig().public.firebaseAuthCookie
   if (req.url === '/api/protected') {
-    const token = useCookie(event, 'firebase-token')
+    const token = useCookie(event, `${cookieOptions.name}-token`)
     const app = getApp()
     const auth = getAuth(app)
     try {

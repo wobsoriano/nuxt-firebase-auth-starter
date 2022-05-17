@@ -9,7 +9,7 @@ export default defineNuxtPlugin(async() => {
   const token = useFirebaseToken()
   const firebaseUser = useUser()
   const auth = getAuth(app)
-
+  
   if (!token.value) return
 
   try {
