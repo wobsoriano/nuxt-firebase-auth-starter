@@ -6,18 +6,17 @@ import formatUser from '~/helpers/format-user'
 // Checks if token is valid on first load.
 
 export default defineNuxtPlugin(async() => {
-  const token = useCookie('token', {
-    path: '/',
-  })
-  const user = useUser()
-
+  const token = useFirebaseToken()
+  const firebaseUser = useUser()
   const auth = getAuth(app)
+
+  if (!token.value) return
+
   try {
     const result = await auth.verifyIdToken(token.value)
-    user.value = formatUser(result)
+    firebaseUser.value = formatUser(result)
   }
   catch (e) {
     // Not authenticated or invalid token
-    token.value = null
   }
 })

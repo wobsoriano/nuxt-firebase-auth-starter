@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const { $firebaseAuth } = useNuxtApp()
 const { data } = await useLazyAsyncData<{ message: string }>('protected', () =>
-  $fetch('/api/protected'),
+  $fetch('/api/protected', {
+    headers: useRequestHeaders(['cookie'])
+  }),
 )
 const router = useRouter()
 const user = useUser()
