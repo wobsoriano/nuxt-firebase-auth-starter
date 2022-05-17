@@ -12,10 +12,6 @@ const signOut = async() => {
   await $firebaseAuth.signOut()
   router.push('/')
 }
-
-definePageMeta({
-  middleware: 'auth'
-})
 </script>
 
 <template>
